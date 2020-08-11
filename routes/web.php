@@ -22,6 +22,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('second-view',function(){
-    return view('secondView');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::resource('rest','RestTestController')->names('restTest');
+
+
+Route::group(['namespace'=>'Blog','prefix'=>'blog'], function(){
+    Route::resource('posts','PostController')->names('blog.posts');
 });
+
+//Админка блога
+
+Route::group(['namespace' => 'Blog\Admin', 'prefix' => 'admin/blog'], function(){
+    //BlogCategory
+    $methods=['index','edit','update','create','store'];
+    Route::resource('categories','CategoryController')
+    ->only($methods)
+    ->names('blog.admin.categories');
+});
+
+

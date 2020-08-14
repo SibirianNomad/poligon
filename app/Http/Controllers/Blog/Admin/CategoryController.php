@@ -16,8 +16,8 @@ class CategoryController extends BaseController
     public function index()
     {
         $paginate=BlogCategories::paginate(5);
-        
-        return view('blog.admin.category.index',compact('paginate'));
+
+        return view('blog.admin.categories.index',compact('paginate'));
     }
 
     /**
@@ -47,7 +47,7 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
+
 
     /**
      * Show the form for editing the specified resource.
@@ -60,8 +60,8 @@ class CategoryController extends BaseController
         $item=BlogCategories::findOrFail($id);
 
         $categoryList=BlogCategories::all();
-        
-        return view('blog.admin.category.edit',compact('item','categoryList'));
+
+        return view('blog.admin.categories.edit',compact('item','categoryList'));
     }
 
     /**
@@ -73,7 +73,16 @@ class CategoryController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        dd(__METHOD__);
+        $id=1111;
+        $item=BlogCategories::find($id);
+        if(empty($item)){
+            return back()
+                ->withErrors(['msg'=>'Запись id[{$id}] не найдена'])
+                ->withInput();
+        }else{
+
+        }
+
     }
 
     /**
@@ -82,5 +91,5 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
 }

@@ -39,8 +39,9 @@ class BlogCategoryRepository extends CoreRepository
     $result=$this
         ->startConditions()
         ->select($fields)
+        ->toBase()
         ->paginate($countPage);
-    
+
     return $result;
        
     }

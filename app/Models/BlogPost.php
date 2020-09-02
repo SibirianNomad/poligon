@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogPost extends Model
 {
-
+    protected $table = 'blog_posts';
     use SoftDeletes;
 }

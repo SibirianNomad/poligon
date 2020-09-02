@@ -38,13 +38,20 @@ Route::group(['namespace'=>'Blog','prefix'=>'blog'], function(){
 });
 
 //Админка блога
-
-Route::group(['namespace' => 'Blog\Admin', 'prefix' => 'admin/blog'], function(){
+$groupData=[
+    'namespace' => 'Blog\Admin',
+    'prefix' => 'admin/blog'
+];
+Route::group($groupData, function(){
     //BlogCategory
     $methods=['index','edit','update','create','store'];
     Route::resource('categories','CategoryController')
     ->only($methods)
     ->names('blog.admin.categories');
+    //Posts
+    Route::resource('posts','PostController')
+        ->except(['show'])
+        ->names('blog.admin.posts');
 });
 
 

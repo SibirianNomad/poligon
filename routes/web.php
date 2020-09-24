@@ -13,45 +13,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    try {
-        DB::connection()->getPdo();
-    } catch (\Exception $e) {
-        die("Could not connect to the database.  Please check your configuration. error:" . $e );
-    }
-    return view('welcome');
-});
+    Route::get('/', function () {
+        try {
+            DB::connection()->getPdo();
+        } catch (\Exception $e) {
+            die("Could not connect to the database.  Please check your configuration. error:" . $e );
+        }
+        return view('welcome');
+    });
 
-Auth::routes();
+    Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+    Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::resource('rest','RestTestController')->names('restTest');
+    //Route::resource('rest','RestTestController')->names('restTest');
 
-//страница постов
-Route::group(['namespace'=>'Blog','prefix'=>'blog'], function(){
-    Route::resource('posts','PostController')->names('blog.posts');
-});
+    //страница постов
+    Route::group(['namespace'=>'Blog','prefix'=>'blog'], function(){
+        Route::resource('posts','PostController')->names('blog.posts');
+    });
 
-//Админка блога
-$groupData=[
-    'namespace' => 'Blog\Admin',
-    'prefix' => 'admin/blog'
-];
-Route::group($groupData, function(){
-    //BlogCategory
-    $methods=['index','edit','update','create','store'];
-    Route::resource('categories','CategoryController')
-    ->only($methods)
-    ->names('blog.admin.categories');
-    //Posts
-    Route::resource('posts','PostController')
-        ->except(['show'])
-        ->names('blog.admin.posts');
-});
+    //Админка блога
+    $groupData=[
+        'namespace' => 'Blog\Admin',
+        'prefix' => 'admin/blog'
+    ];
+    Route::group($groupData, function(){
+        //BlogCategory
+        $methods=['index','edit','update','create','store'];
+        Route::resource('categories','CategoryController')
+        ->only($methods)
+        ->names('blog.admin.categories');
+        //Posts
+        Route::resource('posts','PostController')
+            ->except(['show'])
+            ->names('blog.admin.posts');
+    });
 
 

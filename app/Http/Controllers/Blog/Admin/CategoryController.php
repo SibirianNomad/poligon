@@ -63,7 +63,7 @@ class CategoryController extends BaseController
     if($item){
         return redirect()
             ->route('blog.admin.categories.edit', $item->id)
-            ->with(['success'=>'Успешно сохранено']); 
+            ->with(['success'=>'Успешно сохранено']);
     }else{
         return back()->withErrors(['msg'=>"Ошибка сохранения"])->withInput();
     }
@@ -91,7 +91,7 @@ class CategoryController extends BaseController
         //without repository
         //$item=BlogCategories::findOrFail($id);
         //$categoryList=BlogCategories::all();
-       
+
         //with repository
         $item=$categoryList->getEdit($id);
         if(empty($item)){
@@ -125,7 +125,7 @@ class CategoryController extends BaseController
 
 
         $item=$this->blogCategoryRepository->getEdit($id);
-       
+
         if(empty($item)){
             return back()->withErrors(['msg'=>"Запись id[{$id}] не найдена"])->withInput();
         }

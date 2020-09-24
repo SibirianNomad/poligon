@@ -29,7 +29,7 @@ class BlogPostRepository extends CoreRepository
             ->select($fields)
             ->orderBy('id','DESC')
             //->with(['user','category'])
-                //делаем запрос таким образом чтобы возвращал только поля id и title
+                //делаем запрос таким образом чтобы возвращал только поля id и title  с таблиц user и category
                 ->with(['category'=>function($query){
                 $query->select(['id','title']);
             },
@@ -37,10 +37,14 @@ class BlogPostRepository extends CoreRepository
                 'user:id,name'
                 ])
             ->paginate(25);
-       
+
         return $result;
 
     }
+    public function getEdit($id){
+        return $this->startConditions()->find($id);
+    }
+
 
 
 }

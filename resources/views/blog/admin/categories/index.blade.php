@@ -22,10 +22,10 @@
                                 <tr>
                                  <td>{{$item->id}}</td>
                                  <td>
-                                    <a href="{{ route('blog.admin.categories.create', $item->id) }}">
+                                    <a href="{{ route('blog.admin.categories.edit', $item->id) }}">
                                         {{$item->title}}
                                     </a>
-                            
+
                                     <td @if(in_array($item->parent_id,[0,1])) style='color:#ccc;' @endif >
                                         {{$item->parent_id}}
                                     </td>

@@ -43,7 +43,7 @@ class BlogCategoryRepository extends CoreRepository
         ->paginate($countPage);
 
     return $result;
-       
+
     }
 }
 

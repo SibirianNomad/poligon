@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\BlogCategories;
+use App\Models\BlogCategory;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Http\Requests\BlogCategoryEditRequest;
 use App\Repositories\BlogCategoryRepository;
@@ -38,7 +38,7 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-       $item=new BlogCategories();
+       $item=new BlogCategory();
        $categoryList=$this->blogCategoryRepository->getComboBox();
        return view('blog.admin.categories.edit',compact('item','categoryList'));
     }
@@ -52,14 +52,11 @@ class CategoryController extends BaseController
     public function store(BlogCategoryEditRequest $request)
     {
        $data=$request->input();
-       if(empty($data['slug'])){
-        $data['slug']=Str::slug($data['title']);
-       }
        //create object but not save in DB
     //    $item=new BlogCategories($data);
     //    $item->save();
     //create object and save in DB
-    $item=(new BlogCategories())->create($data);
+    $item=(new BlogCategory())->create($data);
     if($item){
         return redirect()
             ->route('blog.admin.categories.edit', $item->id)
@@ -131,9 +128,7 @@ class CategoryController extends BaseController
         }
 
         $data=$request->all();
-        if(empty($data['slug'])){
-            $data['slug']=Str::slug($data['title']);
-           }
+
         //$result=$item->fill($data)->save();
         $result=$item->update($data);
         if($result){

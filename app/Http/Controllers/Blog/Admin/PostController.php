@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
+use App\Http\Requests\BlogPostUpdateRequest;
 
 class PostController extends BaseController
 {
@@ -76,7 +77,6 @@ class PostController extends BaseController
             abort(404);
         }
         $categoryList=$this->blogCategoryRepository->getComboBox();
-
         return view('blog.admin.posts.edit',
             compact('item','categoryList'));
     }
@@ -88,9 +88,27 @@ class PostController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogPostUpdateRequest $request, $id)
     {
-        //
+
+        $item=$this->blogPostRepository->getEdit($id);
+        if(empty($item)){
+            return back()->withErrors(['msg'=>"Запись id[{$id}] не найдена"])->withInput();
+        }
+
+        $data=$request->all();
+
+
+        $result=$item->update($data);
+        if($result){
+            return redirect()
+                ->route('blog.admin.posts.edit', $item->id)
+                ->with(['success'=>'Успешно сохранено']);
+        }else{
+            return back()->withErrors(['msg'=>"Ошибка сохранения"])->withInput();
+        }
+
+
     }
 
     /**
@@ -101,6 +119,6 @@ class PostController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        dd(__METHOD__,$id);
     }
 }

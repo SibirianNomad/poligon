@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\BlogCategories;
+use App\Models\BlogCategory;
 
 class BlogCategoriesTableSeeder extends Seeder
 {
@@ -28,6 +28,6 @@ class BlogCategoriesTableSeeder extends Seeder
             'parent_id'  =>$parentId
         ];
        }
-       BlogCategories::insert($categories);
+        BlogCategory::insert($categories);
     }
 }

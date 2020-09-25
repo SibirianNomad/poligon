@@ -23,6 +23,7 @@
                 <br>
                     <form method='POST' action="{{ route('blog.admin.posts.destroy', $item->id ) }}">
                         @method('DELETE')
+                        @csrf
                         <div class='row justify-container-center'>
                             <div class='col-md-8'>
                                 <div class="card card-block">

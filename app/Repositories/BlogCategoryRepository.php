@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\BlogCategories as Model;
+use App\Models\BlogCategory as Model;
 
 
 class BlogCategoryRepository extends CoreRepository

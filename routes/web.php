@@ -30,7 +30,12 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    //Route::resource('rest','RestTestController')->names('restTest');
+
+    //work with collections
+    Route::group(['prefix'=>'digging_deeper'],function (){
+        Route::get('collections','DiggingDeepController@collections')
+        ->name('digging_deeper.collection');
+    });
 
     //страница постов
     Route::group(['namespace'=>'Blog','prefix'=>'blog'], function(){
@@ -43,11 +48,13 @@ use Illuminate\Support\Facades\Route;
         'prefix' => 'admin/blog'
     ];
     Route::group($groupData, function(){
+
         //BlogCategory
         $methods=['index','edit','update','create','store'];
         Route::resource('categories','CategoryController')
         ->only($methods)
         ->names('blog.admin.categories');
+
         //Posts
         Route::resource('posts','PostController')
             ->except(['show'])

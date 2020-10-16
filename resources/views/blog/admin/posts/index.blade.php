@@ -2,6 +2,7 @@
 
 @section('content')
     <div class='container'>
+        @include('blog.admin.posts.includes.result_message')
         <div class='row justify-container-center'>
             <div class='col-md-12'>
                 <nav class='nav nav-toggleable-md navbar-light bg-faded'>

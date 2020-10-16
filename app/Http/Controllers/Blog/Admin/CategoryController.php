@@ -26,8 +26,8 @@ class CategoryController extends BaseController
     public function index()
     {
         //$paginate=BlogCategories::paginate(5);
-        $paginate=$this->blogCategoryRepository->getAllWithPaginate(5);
-
+        $paginate=$this->blogCategoryRepository->getAllWithPaginate(25);
+        //dd($paginate);
         return view('blog.admin.categories.index',compact('paginate'));
     }
 
@@ -38,6 +38,7 @@ class CategoryController extends BaseController
      */
     public function create()
     {
+
        $item=new BlogCategory();
        $categoryList=$this->blogCategoryRepository->getComboBox();
        return view('blog.admin.categories.edit',compact('item','categoryList'));
@@ -91,6 +92,16 @@ class CategoryController extends BaseController
 
         //with repository
         $item=$categoryList->getEdit($id);
+
+        $arr['title_before']=$item->title;
+        $item->title='КуТеГОрия 2 Фвф';
+        $arr['title_after']=$item->title;
+        $arr['get_attribute']=$item->getAttribute('title');
+        $arr['get_attributes_to_array']=$item->attributesToArray();
+        $arr['attributes']=$item->attributes['title'];
+        $arr['get_mutated_attributes']=$item->getMutatedAttributes();
+        $arr['has_mutators']=$item->hasGetMutator('title');
+
         if(empty($item)){
             abort(404);
         }

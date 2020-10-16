@@ -15,7 +15,7 @@
                             <th>#</th>
                             <th>Категория</th>
                             <th>Родитель</th>
-                        </td>
+                        </tr>
                         </thead>
                         <tbody>
                             @foreach($paginate as $item)
@@ -27,24 +27,25 @@
                                     </a>
 
                                     <td @if(in_array($item->parent_id,[0,1])) style='color:#ccc;' @endif >
-                                        {{$item->parent_id}}
-                                    </td>
+                                            {{--  {{$item->parentCategory->title ?? '?'}}--}}
+                                        {{$item->parentTitle}}
+                </td>
 
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-   </div>
-   <br>
-   @if($paginate->total() > $paginate->count())
-        <div class='row justify-container-center'>
-            <div class='col-md-12'>
-                <div class='card'>
-                    {{ $paginate->links() }}
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<br>
+@if($paginate->total() > $paginate->count())
+<div class='row justify-container-center'>
+<div class='col-md-12'>
+<div class='card'>
+{{ $paginate->links() }}
                 </div>
             </div>
         </div>

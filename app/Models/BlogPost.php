@@ -9,6 +9,7 @@ class BlogPost extends Model
 {
     protected $table = 'blog_posts';
     use SoftDeletes;
+    const UNKNOWN_USER=1;
 
     //отношения
     public function category(){

@@ -23,6 +23,7 @@ class BlogCategoryRepository extends CoreRepository
             'id',
             'CONCAT(id,". ",title) AS id_title'
         ]);
+
         $result=$this
         ->startConditions()
         ->selectRaw($fields)
@@ -34,12 +35,16 @@ class BlogCategoryRepository extends CoreRepository
 
  public function getAllWithPaginate($countPage=null){
 
-    $fields=['id','title','parent_id'];
+    $fields=[
+        'id',
+        'title',
+        'parent_id'
+    ];
 
     $result=$this
         ->startConditions()
         ->select($fields)
-        ->toBase()
+        ->with(['parentCategory:id,title'])
         ->paginate($countPage);
 
     return $result;

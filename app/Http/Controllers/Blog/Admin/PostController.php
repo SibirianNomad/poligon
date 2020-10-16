@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\BlogPost;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
 use App\Http\Requests\BlogPostUpdateRequest;
-
+use App\Http\Requests\BlogPostCreateRequest;
 class PostController extends BaseController
 {
     /**
@@ -39,7 +40,12 @@ class PostController extends BaseController
      */
     public function create()
     {
-        dd(__METHOD__);
+        $item=new BlogPost();
+
+        $categoryList=$this->blogCategoryRepository->getComboBox();
+
+        return view('blog.admin.posts.edit',compact('item','categoryList'));
+
     }
 
     /**
@@ -48,9 +54,17 @@ class PostController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogPostCreateRequest $request)
     {
-        //
+        $data=$request->input();
+        $item=(new BlogPost())->create($data);
+        if($item){
+            return redirect()
+                ->route('blog.admin.posts.edit', $item->id)
+                ->with(['success'=>'Успешно сохранено']);
+        }else{
+            return back()->withErrors(['msg'=>"Ошибка сохранения"])->withInput();
+        }
     }
 
     /**
@@ -119,6 +133,14 @@ class PostController extends BaseController
      */
     public function destroy($id)
     {
-        dd(__METHOD__,$id);
+        $result=BlogPost::destroy($id);
+
+        if($result){
+            return redirect()
+                ->route('blog.admin.posts.index')
+                ->with(['success'=>"Запись $id успешно удалена"]);
+        }else{
+            return back()->withErrors(['msg'=>"Ошибка сохранения"])->withInput();
+        }
     }
 }

@@ -23,7 +23,6 @@ class BlogPostRepository extends CoreRepository
             'user_id',
             'category_id',
         ];
-
         $result=$this
             ->startConditions()
             ->select($fields)
@@ -44,6 +43,7 @@ class BlogPostRepository extends CoreRepository
     public function getEdit($id){
         return $this->startConditions()->find($id);
     }
+
 
 
 

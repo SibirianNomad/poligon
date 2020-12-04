@@ -36,6 +36,23 @@ use Illuminate\Support\Facades\Route;
         Route::get('collections','DiggingDeepController@collections')
         ->name('digging_deeper.collection');
     });
+    //work with patterns
+        //work with property container
+    Route::group(['prefix'=>'patterns'],function (){
+        Route::get('PropertyContainer','DiggingDeepController@PropertyContainer')
+            ->name('patterns.propertyContainer');
+    });
+        //work with delegation
+    Route::group(['prefix'=>'patterns'],function (){
+        Route::get('EventChannel','DiggingDeepController@EventChannel')
+            ->name('patterns.EventChannel');
+    });
+        //work with delegation
+    Route::group(['prefix'=>'patterns'],function (){
+        Route::get('delegation','DiggingDeepController@Delegation')
+            ->name('patterns.Delegation');
+    });
+
 
     //страница постов
     Route::group(['namespace'=>'Blog','prefix'=>'blog'], function(){

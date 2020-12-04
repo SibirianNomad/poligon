@@ -14,7 +14,7 @@ class CreateBlogPostsTable extends Migration
     public function up()
     {
         Schema::create('blog_posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
 
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
@@ -36,7 +36,7 @@ class CreateBlogPostsTable extends Migration
             $table->foreign('category_id')->references('id')->on('blog_categories');
             $table->index('is_published');
 
-            
+
         });
     }
 
